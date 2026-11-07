@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Naturalz Icecream</title>
+  <style>
+    :root {
+      /* Naturalz-inspired palette: deep navy, tropical aqua, pink, orange and warm cream */
+      --ink: #082d38;
+      --muted: #526d73;
+      --accent: #16c8d0;
+      --accent-dark: #087f91;
+      --cream: #fff8e8;
+      --paper: #ffffff;
+      --line: #d9f0ed;
+      --shadow: 0 18px 55px rgba(8, 45, 56, .12);
+      --pink: #f52f70;
+      --orange: #ff782e;
+      --aqua-soft: #e8fbf8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+    main { width: min(1040px, calc(100% - 36px)); margin: 0 auto; padding: 42px 0 70px; }
+    .home { display: block; text-align: center; }
+    .home[hidden], .detail[hidden] { display: none; }
+    h1 {
+      margin: 0 0 26px;
+      font-size: clamp(2.5rem, 7vw, 4.7rem);
+      line-height: 1.04;
+      letter-spacing: -.045em;
+      color: var(--ink);
+      font-weight: 700;
+      text-shadow: 2px 3px 0 rgba(245, 47, 112, .12);
+    }
+    .hero-image {
+      display: block;
+      width: 100%;
+      height: clamp(220px, 42vw, 410px);
+      object-fit: cover;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      margin: 0 auto 34px;
+      background: linear-gradient(135deg, var(--aqua-soft), #ffe4e9);
+    }
+    .intro { color: var(--muted); font-size: 1.12rem; margin: 0 auto 28px; line-height: 1.6; }
+    .category-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .category {
+      min-height: 125px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--paper);
+      color: var(--ink);
+      padding: 25px 16px;
+      font: inherit;
+      font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 7px 24px rgba(75,45,25,.045);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .category:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: var(--shadow); background: #fff0f4; }
+    .category:nth-child(1) { border-bottom: 4px solid var(--pink); }
+    .category:nth-child(2) { border-bottom: 4px solid var(--accent); }
+    .category:nth-child(3) { border-bottom: 4px solid var(--orange); }
+    .detail { max-width: 900px; margin: 0 auto; }
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--line);
+      background: white;
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 11px 17px;
+      margin-bottom: 24px;
+      font: 600 1rem system-ui, sans-serif;
+      cursor: pointer;
+      border-color: #bde8e5;
+    }
+    .back:hover { background: var(--aqua-soft); border-color: var(--accent); }
+    .detail h2 { font-size: clamp(2.1rem, 5vw, 3.3rem); color: var(--ink); margin: 0 0 22px; text-shadow: 2px 3px 0 rgba(245, 47, 112, .12); }
+    .items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    [hidden] { display: none !important; }
+    .icecream-pricing { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin: -5px 0 24px; padding: 17px 20px; border: 1px solid #bde8e5; border-left: 5px solid var(--accent); border-radius: 15px; background: linear-gradient(110deg, #e8fbf8, #fff0f4); color: var(--ink); font: .96rem/1.5 system-ui, sans-serif; }
+    .icecream-pricing strong { color: var(--accent-dark); text-transform: uppercase; letter-spacing: .08em; font-size: .78rem; }
+    .icecream-pricing b { color: var(--pink); }
+    .item-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      overflow: hidden;
+      box-shadow: 0 7px 24px rgba(75,45,25,.05);
+    }
+    .item-card img { width: 100%; height: 165px; object-fit: cover; display: block; background: #f2dfca; }
+    .item-content { padding: 16px; }
+    .item-content h3 { margin: 0 0 8px; font-size: 1.2rem; }
+    .item-content p { margin: 0 0 12px; color: var(--muted); font: .94rem/1.5 system-ui, sans-serif; }
+    .price { color: var(--pink); font: 800 1.05rem system-ui, sans-serif; }
+    @media (max-width: 680px) {
+      main { padding-top: 30px; }
+      .category-grid, .items { grid-template-columns: 1fr; }
+      .category { min-height: 88px; }
+      .item-card { display: grid; grid-template-columns: 120px 1fr; }
+      .item-card img { height: 100%; min-height: 150px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="home" id="home">
+      <h1>Naturalz Icecream</h1>
+      <img class="hero-image"
+        src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=1600&q=90"
+        alt="Colorful scoops of ice cream" />
+      <p class="intro">A little scoop of happiness, made for every craving.</p>
+      <div class="category-grid">
+        <button class="category" data-category="Icecreams">Icecreams</button>
+        <button class="category" data-category="Faloodas">Faloodas</button>
+        <button class="category" data-category="Special Items">Special Items</button>
+      </div>
+    </section>
+
+    <section class="detail" id="detail" hidden aria-live="polite">
+      <button class="back" id="back">← Back to Menu</button>
+      <h2 id="categoryTitle"></h2>
+      <div class="icecream-pricing" id="icecreamPricing" hidden><strong>Pricing</strong><span>Single Scoop <b>$7</b></span><span>Double Scoop <b>$12</b></span><span>Waffle Cone or Bowl <b>$2 Extra</b></span></div>
+      <div class="icecream-pricing" id="faloodaPricing" hidden><strong>Price</strong><span><b>$12</b></span></div>
+      <div class="items" id="items"></div>
+    </section>
+  </main>
+
+  <script>
+    const catalog = {
+      "Icecreams": [
+        { name: "Mango Madness", description: "A tropical mango treat bursting with fruity flavor.", price: "Single Scoop $7 · Double Scoop $12", image: "https://images.unsplash.com/photo-1501446529957-6226bd447c46?auto=format&fit=crop&w=700&q=85" },
+        { name: "Refreshing Rasmalai", description: "A creamy Indian-inspired flavor with the taste of rasmalai.", price: "Single Scoop $7 · Double Scoop $12", image: "images/rerasmalai.jpg" },
+        { name: "Strawberry Burst", description: "Sweet and refreshing strawberry in every bite.", price: "Single Scoop $7 · Double Scoop $12", image: "images/strawberry.jpg" },
+        { name: "Choco Brownie", description: "Chocolate ice cream inspired by the indulgent taste of brownies.", price: "Single Scoop $7 · Double Scoop $12", image: "images/chocobrownie.jpg" },
+        { name: "Butterscotch Swirl", description: "Smooth, buttery sweetness with a delicious butterscotch twist.", price: "Single Scoop $7 · Double Scoop $12", image: "images/butterscotch.jpg" },
+        { name: "Indian Filter Coffee", description: "A rich coffee-inspired ice cream with classic Indian filter coffee flavor.", price: "Single Scoop $7 · Double Scoop $12", image: "images/coffee.jpg" },
+        { name: "Creamy Malai", description: "A delicate, rich and creamy traditional malai flavor.", price: "Single Scoop $7 · Double Scoop $12", image: "images/malai.jpg" },
+        { name: "Chikoo Paradise", description: "A smooth, sweet treat inspired by the distinctive taste of chikoo.", price: "Single Scoop $7 · Double Scoop $12", image: "images/chikoo.jpg" }
+      ],
+      "Faloodas": [
+        { name: "Mango Magic Falooda", description: "A refreshing mango falooda layered with vermicelli, basil seeds, and creamy goodness.", price: "", image: "images/mango-falooda.png" },
+        { name: "Persian Rose Falooda", description: "A fragrant rose-flavored falooda with delicate sweetness and a creamy, chilled finish.", price: "", image: "images/rose-falooda.png" }
+      ],
+      "Special Items": [
+        { name: "Rasmalai Hot Fudge Brownie", description: "Rich brownie with creamy rasmalai flavor and hot fudge.", price: "$15", image: "images/hot-fudge-brownie.png" },
+        { name: "Butterscotch Blondie", description: "Soft, buttery blondie with delicious butterscotch flavor.", price: "$15", image: "images/butterscotch-blondie.png" },
+        { name: "Fruit and Nut Bowl", description: "A delicious fruit and nut bowl with 3 flavors to choose from.", price: "$15", image: "images/fruit-nut-bowl.png" },
+        { name: "Cotton Candy", description: "Light, fluffy, sweet cotton candy.", price: "$8", image: "images/cotton-candy.png" },
+        { name: "Mango Burst Shake", description: "Refreshing mango shake that comes with popping boba.", price: "$10", image: "https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=700&q=85" },
+        { name: "Strawberry Burst Shake", description: "Creamy strawberry shake bursting with fruity flavor.", price: "$10", image: "https://images.unsplash.com/photo-1553787499-6f9133860278?auto=format&fit=crop&w=700&q=85" }
+      ]
+    };
+
+    // Keep all sample image URLs valid and easy to replace.
+    catalog["Icecreams"][0].image = "https://images.unsplash.com/photo-1501446529957-6226bd447c46?auto=format&fit=crop&w=700&q=85";
+
+    const home = document.getElementById("home");
+    const detail = document.getElementById("detail");
+    const title = document.getElementById("categoryTitle");
+    const items = document.getElementById("items");
+    const icecreamPricing = document.getElementById("icecreamPricing");
+    const faloodaPricing = document.getElementById("faloodaPricing");
+
+    function openCategory(category) {
+      title.textContent = category;
+      icecreamPricing.hidden = category !== "Icecreams";
+      faloodaPricing.hidden = category !== "Faloodas";
+      items.replaceChildren();
+      catalog[category].forEach(item => {
+        const card = document.createElement("article");
+        card.className = "item-card";
+        const img = document.createElement("img");
+        img.src = item.image;
+        img.alt = item.name;
+        const content = document.createElement("div");
+        content.className = "item-content";
+        const name = document.createElement("h3");
+        name.textContent = item.name;
+        const description = document.createElement("p");
+        description.textContent = item.description;
+        content.append(name, description);
+        if (category === "Special Items" && item.price) {
+          const price = document.createElement("div");
+          price.className = "price";
+          price.textContent = item.price;
+          content.append(price);
+        }
+        card.append(img, content);
+        items.append(card);
+      });
+      home.hidden = true;
+      detail.hidden = false;
+      history.pushState({ category }, "", "#" + encodeURIComponent(category.toLowerCase().replaceAll(" ", "-")));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function goHome(updateHistory = true) {
+      detail.hidden = true;
+      home.hidden = false;
+      if (updateHistory) history.pushState({ home: true }, "", "#home");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    document.querySelectorAll("[data-category]").forEach(button => {
+      button.addEventListener("click", () => openCategory(button.dataset.category));
+    });
+    document.getElementById("back").addEventListener("click", () => goHome());
+    window.addEventListener("popstate", event => {
+      if (event.state && event.state.category) {
+        openCategoryFromHistory(event.state.category);
+      } else {
+        goHome(false);
+      }
+    });
+    function openCategoryFromHistory(category) {
+      title.textContent = category;
+      icecreamPricing.hidden = category !== "Icecreams";
+      faloodaPricing.hidden = category !== "Faloodas";
+      items.replaceChildren();
+      catalog[category].forEach(item => {
+        const card = document.createElement("article");
+        card.className = "item-card";
+        card.innerHTML = `<img src="${item.image}" alt=""><div class="item-content"><h3></h3><p></p></div>`;
+        card.querySelector("img").alt = item.name;
+        card.querySelector("h3").textContent = item.name;
+        card.querySelector("p").textContent = item.description;
+        if (category === "Special Items" && item.price) {
+          const price = document.createElement("div");
+          price.className = "price";
+          price.textContent = item.price;
+          card.querySelector(".item-content").append(price);
+        }
+        items.append(card);
+      });
+      home.hidden = true;
+      detail.hidden = false;
+    }
+  </script>
+</body>
+</html>
